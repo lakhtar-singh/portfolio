@@ -19,8 +19,6 @@ npm run preview  # serve the production build
 | `/home-v2` | Original dark "workbench" design: amber accent, canvas dot field, `git log` career, bento project grid with modal demos |
 
 Both pages read the same content from `src/data.js` and share the live demos in `src/demos/`.
-`public/_redirects` (Netlify) and `vercel.json` (Vercel) make `/home-v2` work after deploy.
-
 The route switch lives in `src/main.jsx`. Both pages have a **Dark design / Light design** button (top bar, mobile dock, footer and ⌘K). It wipes into the other design and lands on the same section; the logic is in `src/lib/designSwitch.js`.
 
 Both designs render the same content from `src/data.js`, including the shared section headings in `sectionCopy`. Edit text there, not in components.
@@ -52,6 +50,19 @@ Both designs render the same content from `src/data.js`, including the shared se
 
 All text lives in `src/data.js`: profile, skills, team lead / developer roles, experience, education and projects.
 
-## Deploying
+## Deploying to GitHub Pages
 
-The `dist/` folder is a static site. Drag it into Netlify, or import the repo into Vercel (framework preset: Vite).
+Live at **https://lakhtar-singh.github.io/portfolio/** (dark design: `/portfolio/home-v2`).
+
+```bash
+npm run deploy
+```
+
+This builds the site (`predeploy`) and pushes `dist/` to the `gh-pages` branch. Run it again whenever you want to publish changes.
+
+One-time setup on GitHub: **Settings → Pages → Source: Deploy from a branch → Branch: `gh-pages`, folder `/ (root)`**.
+
+How it fits together:
+- `vite.config.js` builds with `base: '/portfolio/'`; `npm run dev` still serves at `http://localhost:5173/`.
+- GitHub Pages has no rewrites, so the build also writes `dist/home-v2/index.html` (the dark design) and `dist/404.html`.
+- If the repo is ever renamed, update `base` in `vite.config.js` and `homepage` in `package.json` to match, including capital letters.

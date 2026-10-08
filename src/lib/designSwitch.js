@@ -2,11 +2,13 @@ import { useEffect } from 'react'
 import { getLenis } from './scroll'
 import { sectionOrder } from '../data'
 
-const MAIN = '/'
-const CLASSIC = '/home-v2'
+// BASE_URL is '/' in dev and '/portfolio/' on GitHub Pages.
+const MAIN = import.meta.env.BASE_URL
+const CLASSIC = `${MAIN}home-v2`
 const KEY = 'ls-design-switch'
+const trimSlash = (path) => path.replace(/\/+$/, '')
 
-export const isClassicPath = () => window.location.pathname.replace(/\/$/, '') === CLASSIC
+export const isClassicPath = () => trimSlash(window.location.pathname) === trimSlash(CLASSIC)
 
 /** Which section the reader is looking at right now. */
 function currentSection() {

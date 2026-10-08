@@ -76,7 +76,7 @@ export default function HeroV2({ ready }) {
   return (
     <section id="top" className="v2-hero">
       <motion.header className="v2-topbar v2-wrap" {...show(0.1)}>
-        <a href="/" className="v2-logo"><span>LS</span>Lakhtar Singh</a>
+        <a href={import.meta.env.BASE_URL} className="v2-logo"><span>LS</span>Lakhtar Singh</a>
         <div className="v2-topbar-right">
           <span className="v2-status"><i />{profile.status}</span>
           <DesignSwitch className="v2-switch" />
