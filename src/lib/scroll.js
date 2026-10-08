@@ -1,6 +1,7 @@
 let lenis = null
 
 export const setLenis = (instance) => { lenis = instance }
+export const getLenis = () => lenis
 
 export function scrollToId(id) {
   const el = document.getElementById(id)

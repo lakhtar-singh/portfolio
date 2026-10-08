@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SectionHeadV2 } from './Shared'
-import { skillCategories, skills } from '../data'
+import { sectionCopy, skillCategories, skills } from '../data'
 
 const ease = [0.22, 1, 0.36, 1]
 const order = ['Leadership', 'Frontend', 'Backend', 'Data', 'Git & workflow', 'Cloud & DevOps', 'Practices']
@@ -15,14 +15,9 @@ export default function StackLayers() {
   const pick = (c) => { setActive(c); setSkill(null) }
 
   return (
-    <section id="skills" data-label="Stack" className="v2-section v2-stack">
+    <section id="skills" data-label={sectionCopy.skills.label} className="v2-section v2-stack">
       <div className="v2-wrap">
-        <SectionHeadV2
-          label="Stack"
-          title="The full stack, layer by layer."
-          accent={[1, 2]}
-          intro={`${skills.length} skills across seven layers, from leading the team down to the habits under everything. Hover the stack or pick a layer.`}
-        />
+        <SectionHeadV2 label={sectionCopy.skills.label} title={sectionCopy.skills.title} accent={sectionCopy.skills.accent} intro={sectionCopy.skills.intro} />
         <div className="v2-stack-grid">
           <div className="v2-iso-wrap" onPointerEnter={() => setOpen(true)} onPointerLeave={() => setOpen(false)}>
             <div className={`v2-iso ${open ? 'is-open' : ''}`}>

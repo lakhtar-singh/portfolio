@@ -1,5 +1,6 @@
 import { scrollToTop } from '../lib/scroll'
 import { openPalette } from '../lib/events'
+import { switchDesign } from '../lib/designSwitch'
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
         <div className="footer-row">
           <span>© {new Date().getFullYear()} Lakhtar Singh. Built with React, Framer Motion and Lenis.</span>
           <span className="footer-actions">
-            <a className="link-btn" href="/home-v2">See design v2 →</a>
+            <button className="link-btn" onClick={(e) => switchDesign(e.currentTarget)}>Switch to the light design</button>
             <button className="link-btn" onClick={openPalette}>Command menu</button>
             <button className="link-btn" onClick={scrollToTop}>Back to top ↑</button>
           </span>

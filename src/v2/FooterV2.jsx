@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { scrollToTop } from '../lib/scroll'
 import { openPalette } from '../lib/events'
+import { switchDesign } from '../lib/designSwitch'
 
 export default function FooterV2() {
   return (
@@ -19,6 +20,7 @@ export default function FooterV2() {
         <div className="v2-footer-row">
           <span>© {new Date().getFullYear()} Lakhtar Singh · Full-stack developer · Toronto</span>
           <span className="v2-footer-links">
+            <button onClick={(e) => switchDesign(e.currentTarget)}>Switch to the dark design</button>
             <button onClick={openPalette}>Command menu</button>
             <button onClick={scrollToTop}>Back to top ↑</button>
           </span>

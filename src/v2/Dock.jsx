@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { scrollToId } from '../lib/scroll'
 import { openPalette } from '../lib/events'
+import DesignSwitch from '../components/DesignSwitch'
 
 const items = [
   ['skills', 'Stack'],
@@ -53,6 +54,7 @@ export default function Dock({ ready }) {
       {items.map(([id, label]) => <DockItem key={id} id={id} label={label} mouseX={mouseX} active={active === id} />)}
       <span className="v2-dock-sep" aria-hidden="true" />
       <button className="v2-dock-k" onClick={openPalette} aria-label="Open command menu">⌘K</button>
+      <DesignSwitch className="v2-dock-switch" compact />
     </motion.nav>
   )
 }

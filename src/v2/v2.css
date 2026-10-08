@@ -297,6 +297,15 @@ a.v2-direct-row:hover b { color: var(--p-cobalt); }
 .v2-footer-links a, .v2-footer-links button { color: var(--p-paper); text-decoration: none; font-weight: 600; transition: color 0.2s; }
 .v2-footer-links a:hover, .v2-footer-links button:hover { color: #8fa0ff; }
 
+
+/* Design switch */
+.v2 .design-switch { border: 0; box-shadow: inset 0 0 0 1.5px var(--p-ink); color: var(--p-ink); background: transparent; font-family: var(--p-body); padding: 7px 14px 7px 10px; }
+.v2 .design-switch:hover { background: var(--p-ink); color: var(--p-paper); }
+.v2 .v2-dock-switch { width: 38px; height: 38px; padding: 0; justify-content: center; align-self: center; box-shadow: none; color: #c9ced8; margin-left: 2px; }
+.v2 .v2-dock-switch:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.v2-hero-stack { margin: -8px 0 0; color: var(--p-muted); max-width: 52ch; }
+.v2-direct-hint { font-weight: 500; font-size: 0.85rem; color: var(--p-muted); margin-left: 6px; }
+
 /* Responsive */
 @media (max-width: 1000px) {
   .v2-hero-foot, .v2-stack-grid, .v2-contact-grid, .v2-me-top { grid-template-columns: minmax(0, 1fr); }
@@ -317,7 +326,10 @@ a.v2-direct-row:hover b { color: var(--p-cobalt); }
   .v2-dock { gap: 0; padding: 6px; border-radius: 16px; }
   .v2-dock-item { padding: 8px 10px; font-size: 0.8rem; }
   .v2-dock-sep, .v2-dock-k { display: none; }
-  .v2-topbar .v2-link { display: none; }
+  .v2 .v2-dock-switch { width: 34px; height: 34px; }
+  .v2-topbar .v2-switch .design-switch-text { display: none; }
+  .v2-topbar .v2-switch { padding: 9px; }
+  .v2-topbar-right { gap: 10px; }
   .v2-iso-wrap { height: 380px; }
   .v2-iso { margin-top: 110px; transform: rotateX(58deg) rotateZ(-45deg) scale(0.68); }
   .v2-spec > div { grid-template-columns: 76px minmax(0, 1fr); }
@@ -330,4 +342,7 @@ a.v2-direct-row:hover b { color: var(--p-cobalt); }
 @media (prefers-reduced-motion: reduce) {
   .v2-plate { transition: none; }
   .v2-badge-ring { animation: none; }
+}
+@media (max-width: 400px) {
+  .v2-dock-item { padding: 8px 7px; font-size: 0.76rem; }
 }

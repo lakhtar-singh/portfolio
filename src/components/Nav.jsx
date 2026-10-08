@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { scrollToId, scrollToTop, lockScroll } from '../lib/scroll'
 import { openPalette } from '../lib/events'
+import DesignSwitch from './DesignSwitch'
 
 export const sections = [
+  ['skills', 'Stack'],
+  ['projects', 'Work'],
+  ['experience', 'Career'],
   ['about', 'About'],
-  ['leadership', 'Lead & build'],
-  ['skills', 'Skills'],
-  ['experience', 'Experience'],
-  ['projects', 'Projects'],
   ['contact', 'Contact'],
 ]
 
@@ -61,6 +61,7 @@ export default function Nav() {
           ))}
         </nav>
         <div className="nav-actions">
+          <DesignSwitch className="nav-switch" />
           <button className="kbd-btn" onClick={openPalette} aria-label="Open command menu">
             <kbd>{isMac ? '⌘' : 'Ctrl'}</kbd><kbd>K</kbd>
           </button>
@@ -94,6 +95,9 @@ export default function Nav() {
                   <span className="mono">~/{id}</span>{label}
                 </motion.button>
               ))}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+                <DesignSwitch className="mobile-switch" />
+              </motion.div>
             </nav>
           </motion.div>
         )}

@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Magnetic, Reveal, SectionHead } from './Fx'
-import { profile } from '../data'
+import { profile, sectionCopy } from '../data'
+import { useTorontoTime } from '../lib/useTorontoTime'
 import { copyText, toast } from '../lib/events'
 
 function TorontoClock() {
-  const [now, setNow] = useState(() => new Date())
-  useEffect(() => { const id = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(id) }, [])
-  const time = now.toLocaleTimeString('en-CA', { timeZone: profile.timezone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
-  const hour = +now.toLocaleString('en-CA', { timeZone: profile.timezone, hour: '2-digit', hour12: false })
-  return <><b className="mono">{time}</b><span className="muted">{hour >= 9 && hour < 19 ? 'Usually replies within a few hours' : 'Replies next morning'}</span></>
+  const { time, hint } = useTorontoTime()
+  return <><b className="mono">{time}</b><span className="muted">{hint}</span></>
 }
 
 export default function Contact() {
@@ -26,9 +24,9 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" data-label="Contact" className="section contact">
+    <section id="contact" data-label={sectionCopy.contact.label} className="section contact">
       <div className="wrap">
-        <SectionHead path="contact" title="Let’s build something people enjoy using" accent={[3]} />
+        <SectionHead path="contact" title={sectionCopy.contact.title} accent={sectionCopy.contact.accent} intro={sectionCopy.contact.intro} />
         <div className="contact-grid">
           <div className="contact-left">
             <Magnetic strength={0.2}>
@@ -49,6 +47,10 @@ export default function Contact() {
               <Reveal className="contact-card" delay={0.16}>
                 <span className="card-label">Toronto time</span>
                 <TorontoClock />
+              </Reveal>
+              <Reveal className="contact-card" delay={0.24}>
+                <span className="card-label">Status</span>
+                <span className="contact-status"><i />{profile.status}</span>
               </Reveal>
             </div>
           </div>

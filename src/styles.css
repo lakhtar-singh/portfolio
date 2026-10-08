@@ -236,7 +236,7 @@ kbd { font: 500 0.72rem var(--f-mono); padding: 2px 6px; border-radius: 5px; bac
 .edu-list li { display: grid; gap: 1px; font-size: 0.92rem; }
 .edu-list strong { font-weight: 700; }
 .edu-list span { color: var(--muted); }
-.marquees { margin-top: clamp(70px, 10vw, 130px); display: grid; gap: 4px; transform: rotate(-2deg); }
+.marquees { padding-block: clamp(30px, 5vw, 60px); display: grid; gap: 4px; transform: rotate(-2deg); overflow: hidden; }
 .marquee { overflow: hidden; white-space: nowrap; padding-block: 10px; }
 .marquee:first-child { background: var(--amber); color: var(--amber-ink); }
 .marquee-track { display: flex; width: max-content; }
@@ -580,7 +580,7 @@ input[type='range']:active::-webkit-slider-thumb { transform: scale(1.25); }
 .email-big:hover::after { clip-path: circle(150% at 100% 100%); }
 .email-text { font: 800 clamp(1.05rem, 2.1vw, 1.65rem) / 1.15 var(--f-display); letter-spacing: -0.02em; }
 .email-hint { font-size: 0.8rem; opacity: 0.7; }
-.contact-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.contact-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .contact-card { display: grid; gap: 4px; align-content: start; padding: 18px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); font-size: 0.85rem; min-width: 0; }
 .contact-card b { font-size: 1.3rem; font-variant-numeric: tabular-nums; }
 .contact-link { font-weight: 700; font-size: 1rem; text-decoration: none; overflow-wrap: anywhere; transition: color 0.2s; }
@@ -622,20 +622,12 @@ input[type='range']:active::-webkit-slider-thumb { transform: scale(1.25); }
 .toast { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: var(--text); color: var(--ink); font-weight: 700; font-size: 0.9rem; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6); white-space: nowrap; }
 .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
 
-/* Roles (team lead / developer) */
+/* About me: team lead / developer switcher */
 .role-switch { display: inline-flex; padding: 5px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--ink-2); margin-bottom: 22px; max-width: 100%; }
 .role-tab { position: relative; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; color: var(--muted); transition: color 0.3s; }
 .role-tab.is-active { color: var(--amber-ink); }
 .role-pill { position: absolute; inset: 0; border-radius: inherit; background: var(--amber); }
 .role-tab-text { position: relative; z-index: 1; }
-.role-summary { max-width: 62ch; color: var(--muted); font-size: 1.05rem; margin-bottom: 26px; }
-.role-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; perspective: 1200px; }
-.role-card { height: 100%; display: grid; gap: 10px; align-content: start; padding: 24px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); transition: border-color 0.3s; }
-.role-card:hover { border-color: rgba(255, 180, 84, 0.45); }
-.role-cmd { font-size: 0.78rem; color: var(--mint); padding: 5px 10px; border-radius: 8px; background: var(--ink-2); justify-self: start; border: 1px solid var(--line); }
-.role-title { font: 800 1.35rem / 1.15 var(--f-display); letter-spacing: -0.015em; }
-.role-text { color: var(--muted); font-size: 0.95rem; }
-.role-where { font-size: 0.72rem; color: var(--amber); margin-top: 4px; }
 .commit-lead { padding: 2px 8px; border-radius: 6px; background: var(--amber); color: var(--amber-ink); font-weight: 700; }
 .commit.is-lead { border-color: rgba(255, 180, 84, 0.35); }
 
@@ -788,6 +780,50 @@ input[type='range']:active::-webkit-slider-thumb { transform: scale(1.25); }
 .releases li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px; border-radius: 8px; font-size: 0.8rem; }
 .rel-note { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+
+/* Design switch (shared markup, styled per design) */
+.design-switch { display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px 8px 10px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; white-space: nowrap; border: 1px solid var(--line-2); color: var(--text); transition: border-color 0.25s, background 0.25s, color 0.25s; }
+.design-switch:hover { border-color: var(--amber); background: rgba(255, 180, 84, 0.08); }
+.design-switch-icon { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); transition: transform 0.6s var(--ease); }
+.design-switch:hover .design-switch-icon { transform: rotate(180deg); }
+.mobile-switch { margin-top: 18px; padding: 12px 18px 12px 14px; font-size: 1rem; }
+
+/* Shared hero facts */
+.hero-stackline { display: block; margin-top: 6px; color: var(--text); opacity: 0.8; }
+.hero-facts { margin: 0; display: grid; gap: 6px; }
+.hero-facts > div { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; font-size: 0.92rem; }
+.hero-facts dt { font: 600 0.72rem var(--f-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); padding-top: 3px; }
+.hero-facts dd { margin: 0; }
+
+/* About me */
+.fact-list { margin: 0; display: grid; gap: 0; }
+.fact-list > div { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); }
+.fact-list > div:first-child { border-top: 0; padding-top: 0; }
+.fact-list dt { font: 500 0.7rem var(--f-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.fact-list dd { margin: 0; font-weight: 600; font-size: 0.95rem; }
+.sides { margin-top: clamp(40px, 6vw, 72px); }
+.side-panel { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(24px, 4vw, 44px); border-radius: 26px; background: var(--panel); border: 1px solid var(--line-2); }
+.side-dev { background: linear-gradient(140deg, var(--panel-2), var(--panel)); }
+.side-ghost { position: absolute; right: -0.04em; bottom: -0.2em; font: 800 clamp(5rem, 14vw, 11rem) / 1 var(--f-display); letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1.2px rgba(255, 180, 84, 0.18); pointer-events: none; }
+.side-figure { position: relative; display: grid; gap: 8px; }
+.side-num { font: 800 clamp(4.4rem, 10vw, 8rem) / 0.85 var(--f-display); letter-spacing: -0.04em; color: var(--amber); font-variant-numeric: tabular-nums; }
+.side-unit { font-weight: 700; font-size: 1.1rem; }
+.side-body { position: relative; display: grid; gap: 16px; }
+.side-line { color: var(--muted); font-size: 1.05rem; max-width: 46ch; }
+.side-points { list-style: none; margin: 0; padding: 0; display: grid; }
+.side-points li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--line); font-weight: 600; }
+.side-mark { width: 22px; height: 22px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--amber); color: var(--amber-ink); font-size: 0.7rem; }
+
+/* Education under the career log */
+.edu-block { margin-top: 28px; margin-left: 44px; padding: 22px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+.edu-block .edu-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.commit-now { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; background: rgba(125, 211, 192, 0.14); color: var(--mint); font-weight: 700; }
+.commit-now i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); animation: ping 2s infinite; }
+
+/* Contact status */
+.contact-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--mint); }
+.contact-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); animation: ping 2s infinite; }
+
 /* Responsive */
 @media (max-width: 1020px) {
   .nav-links { display: none; }
@@ -796,11 +832,15 @@ input[type='range']:active::-webkit-slider-thumb { transform: scale(1.25); }
   .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-cell { grid-column: span 1; }
   .project-cell.is-hero { grid-column: 1 / -1; }
-  .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .jobs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
   .kbd-btn, .nav-cta, .logo-text { display: none; }
+  .nav-switch .design-switch-text { display: none; }
+  .nav-switch { padding: 10px; }
+  .side-panel { grid-template-columns: minmax(0, 1fr); }
+  .edu-block { margin-left: 32px; }
+  .edu-block .edu-list { grid-template-columns: minmax(0, 1fr); }
   .hero { padding-block: 100px 90px; }
   .hero-line-2 { padding-left: 0; }
   .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
@@ -818,7 +858,7 @@ input[type='range']:active::-webkit-slider-thumb { transform: scale(1.25); }
   .modal { border-radius: 22px; }
   .modal-head { padding: 14px 16px; }
   .modal-actions .icon-btn:not(:last-child) { display: none; }
-  .role-grid, .response-grid, .stock-grid, .press-grid, .pipe-bottom { grid-template-columns: minmax(0, 1fr); }
+  .response-grid, .stock-grid, .press-grid, .pipe-bottom { grid-template-columns: minmax(0, 1fr); }
   .role-switch { display: flex; }
   .role-tab { flex: 1; padding: 11px 10px; font-size: 0.85rem; }
   .mw-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }

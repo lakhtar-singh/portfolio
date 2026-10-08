@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { SectionHeadV2 } from './Shared'
 import { Magnetic } from '../components/Fx'
-import { profile } from '../data'
+import { profile, sectionCopy } from '../data'
+import { useTorontoTime } from '../lib/useTorontoTime'
 import { copyText, toast } from '../lib/events'
 
 const topics = ['A full-stack role', 'A team lead role', 'A freelance project', 'Just saying hi']
@@ -18,6 +19,7 @@ export default function ChatContact() {
   const [input, setInput] = useState('')
   const [form, setForm] = useState({ name: '', topic: '', email: '' })
   const timers = useRef([])
+  const toronto = useTorontoTime()
 
   const say = (texts, next) => {
     let t = 0
@@ -85,9 +87,9 @@ export default function ChatContact() {
   const placeholder = { name: 'Type your name…', topic: 'Or type your own reason…', email: 'you@company.com' }[stage]
 
   return (
-    <section id="contact" data-label="Contact" className="v2-section v2-contact" ref={ref}>
+    <section id="contact" data-label={sectionCopy.contact.label} className="v2-section v2-contact" ref={ref}>
       <div className="v2-wrap">
-        <SectionHeadV2 label="Contact" title="Let’s build something people enjoy using." accent={[3, 4, 5]} />
+        <SectionHeadV2 label={sectionCopy.contact.label} title={sectionCopy.contact.title} accent={sectionCopy.contact.accent} intro={sectionCopy.contact.intro} />
         <div className="v2-contact-grid">
           <div className="v2-chat">
             <div className="v2-chat-head">
@@ -154,6 +156,7 @@ export default function ChatContact() {
             </Magnetic>
             <a className="v2-direct-row" href={profile.linkedin} target="_blank" rel="noreferrer"><span className="v2-label">LinkedIn</span><b>in/lakhtar-singh ↗</b></a>
             <a className="v2-direct-row" href={`tel:${profile.phone.replace(/\s/g, '')}`}><span className="v2-label">Phone</span><b>{profile.phone}</b></a>
+            <div className="v2-direct-row"><span className="v2-label">Toronto time</span><b>{toronto.time} <span className="v2-direct-hint">{toronto.hint}</span></b></div>
             <div className="v2-direct-row"><span className="v2-label">Status</span><b>{profile.status}</b></div>
           </div>
         </div>

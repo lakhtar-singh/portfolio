@@ -1,10 +1,10 @@
-import { useRef } from 'react'
-import { motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, LayoutGroup, animate, motion, useAnimationFrame, useInView, useMotionValue, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion'
 import { SectionHead, Reveal } from './Fx'
-import { education, marqueeBottom, marqueeTop } from '../data'
+import { aboutMe, marqueeBottom, marqueeTop, sectionCopy } from '../data'
 
-const story =
-  'I started writing *PHP* in 2013 and haven’t stopped shipping since. Today I work across the *whole* *stack:* *React* and *Vue* interfaces, *Node,* *Express* and *Laravel* APIs, *WordPress* builds and the *MySQL* or *MongoDB* data underneath. For four years I *led* the team doing it, from sprint planning and pull request reviews to CI/CD pipelines that ship every merge to AWS.'
+const ease = [0.22, 1, 0.36, 1]
+const highlight = new Set(['senior', 'full-stack', '2013', 'four', 'leading'])
 
 function Word({ children, progress, range, accent }) {
   const opacity = useTransform(progress, range, [0.14, 1])
@@ -12,20 +12,16 @@ function Word({ children, progress, range, accent }) {
   return <motion.span className={`sw ${accent ? 'accent-word' : ''}`} style={{ opacity, y }}>{children}</motion.span>
 }
 
-function ScrollWords() {
+function ScrollWords({ text }) {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 85%', 'end 50%'] })
-  const words = story.split(' ')
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 85%', 'end 55%'] })
+  const words = text.split(' ')
   return (
-    <p ref={ref} className="about-lead" aria-label={story.replaceAll('*', '')}>
+    <p ref={ref} className="about-lead" aria-label={text}>
       {words.map((w, i) => {
         const start = i / words.length
-        const accent = w.includes('*')
-        return (
-          <Word key={i} progress={scrollYProgress} range={[start, start + 1 / words.length]} accent={accent}>
-            {w.replaceAll('*', '')}
-          </Word>
-        )
+        const accent = highlight.has(w.toLowerCase().replace(/[^a-z0-9-]/g, ''))
+        return <Word key={i} progress={scrollYProgress} range={[start, start + 1 / words.length]} accent={accent}>{w}</Word>
       })}
     </p>
   )
@@ -66,36 +62,92 @@ function VelocityRow({ items, baseVelocity, outline }) {
   )
 }
 
+/** Tech ribbons between the hero and the first section. */
+export function Marquees() {
+  return (
+    <div className="marquees">
+      <VelocityRow items={marqueeTop} baseVelocity={-2.2} />
+      <VelocityRow items={marqueeBottom} baseVelocity={2.2} outline />
+    </div>
+  )
+}
+
+function Count({ value, suffix }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    const c = animate(0, value, { duration: 1.2, ease: 'easeOut', onUpdate: (v) => setN(Math.round(v)) })
+    return () => c.stop()
+  }, [inView, value])
+  return <span ref={ref}>{n}{suffix}</span>
+}
+
+function SideSwitch() {
+  const [mode, setMode] = useState(aboutMe.sides[0].id)
+  const side = aboutMe.sides.find((s) => s.id === mode)
+  return (
+    <div className="sides">
+      <LayoutGroup>
+        <div className="role-switch" role="tablist" aria-label="Role">
+          {aboutMe.sides.map((s) => (
+            <button key={s.id} role="tab" aria-selected={mode === s.id} className={`role-tab ${mode === s.id ? 'is-active' : ''}`} onClick={() => setMode(s.id)}>
+              {mode === s.id && <motion.span layoutId="role-pill" className="role-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
+              <span className="role-tab-text">{s.title}</span>
+            </button>
+          ))}
+        </div>
+      </LayoutGroup>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={mode}
+          className={`side-panel side-${mode}`}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -14 }}
+          transition={{ duration: 0.45, ease }}
+        >
+          <span className="side-ghost" aria-hidden="true">{side.ghost}</span>
+          <div className="side-figure">
+            <span className="side-num"><Count value={side.value} suffix={side.suffix} /></span>
+            <span className="side-unit">{side.unit}</span>
+          </div>
+          <div className="side-body">
+            <p className="side-line">{side.line}</p>
+            <ul className="side-points">
+              {side.points.map((pt, k) => (
+                <motion.li key={pt} initial={{ opacity: 0, x: -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 + k * 0.07, duration: 0.4, ease }}>
+                  <span className="side-mark" aria-hidden="true">✓</span>{pt}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export default function About() {
   return (
-    <section id="about" data-label="About" className="section about">
+    <section id="about" data-label={sectionCopy.about.label} className="section about">
       <div className="wrap">
-        <SectionHead path="about" title="A full-stack developer who sweats the details" accent={[1]} />
+        <SectionHead path="about" title={aboutMe.statement} accent={sectionCopy.about.accent} />
         <div className="about-grid">
-          <ScrollWords />
+          <ScrollWords text={aboutMe.bio} />
           <aside className="about-side">
             <Reveal className="about-card">
-              <p className="card-label">Now</p>
-              <p>Senior Full-Stack Developer at Tags for Hope since August 2025. Open to full-stack and team lead roles in Toronto or remote.</p>
-            </Reveal>
-            <Reveal className="about-card" delay={0.1}>
-              <p className="card-label">Education</p>
-              <ul className="edu-list">
-                {education.map((e) => (
-                  <li key={e.school}>
-                    <strong>{e.program}</strong>
-                    <span>{e.school}, {e.place}</span>
-                    <span className="mono muted">{e.dates}</span>
-                  </li>
+              <p className="card-label">At a glance</p>
+              <dl className="fact-list">
+                {aboutMe.facts.map(([k, v]) => (
+                  <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
                 ))}
-              </ul>
+              </dl>
             </Reveal>
           </aside>
         </div>
-      </div>
-      <div className="marquees">
-        <VelocityRow items={marqueeTop} baseVelocity={-2.2} />
-        <VelocityRow items={marqueeBottom} baseVelocity={2.2} outline />
+        <SideSwitch />
       </div>
     </section>
   )

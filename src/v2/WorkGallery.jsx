@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useTransform } from
 import Preview from '../components/Preview'
 import { SectionHeadV2 } from './Shared'
 import { demos } from '../demos'
-import { kindClass, kindLabel, projects } from '../data'
+import { kindClass, kindLabel, projects, sectionCopy } from '../data'
 import { lockScroll, scrollToId } from '../lib/scroll'
 import { useMediaQuery } from '../lib/useMediaQuery'
 
@@ -36,12 +36,7 @@ function Panel({ p, i, onOpen }) {
 
 const Intro = () => (
   <div className="v2-work-intro">
-    <SectionHeadV2
-      label="Work"
-      title="Eleven projects you can actually run."
-      accent={[4, 5]}
-      intro="Full-stack builds that go from React down to MySQL and MongoDB, three shipped projects from my résumé, and four front-end labs."
-    />
+    <SectionHeadV2 label={sectionCopy.projects.label} title={sectionCopy.projects.title} accent={sectionCopy.projects.accent} intro={sectionCopy.projects.intro} />
     <ul className="v2-legend">
       {Object.entries(counts).map(([k, n]) => <li key={k}><b>{n}</b>{k}</li>)}
     </ul>
@@ -178,7 +173,7 @@ export default function WorkGallery() {
   }), [])
 
   return (
-    <section id="projects" data-label="Work" className="v2-work">
+    <section id="projects" data-label={sectionCopy.projects.label} className="v2-work">
       {wide && !reduce ? <Horizontal onOpen={setActive} /> : <Vertical onOpen={setActive} />}
       <AnimatePresence>{active && <Drawer key="drawer" p={active} onClose={close} onNav={nav} />}</AnimatePresence>
     </section>

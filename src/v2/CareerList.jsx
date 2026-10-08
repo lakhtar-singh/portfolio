@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
 import { SectionHeadV2 } from './Shared'
-import { education, experience } from '../data'
+import { education, experience, sectionCopy } from '../data'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -21,14 +21,9 @@ export default function CareerList() {
   }
 
   return (
-    <section id="experience" data-label="Career" className="v2-section v2-career">
+    <section id="experience" data-label={sectionCopy.experience.label} className="v2-section v2-career">
       <div className="v2-wrap">
-        <SectionHeadV2
-          label="Career"
-          title="Twelve years, five companies, one team led."
-          accent={[5, 6]}
-          intro="Newest first. Open a row to see what I owned there."
-        />
+        <SectionHeadV2 label={sectionCopy.experience.label} title={sectionCopy.experience.title} accent={sectionCopy.experience.accent} intro={sectionCopy.experience.intro} />
         <ul className="v2-rows" onPointerMove={move} onPointerLeave={() => setHover(null)}>
           {experience.map((e, i) => (
             <motion.li

@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { SectionHead } from './Fx'
-import { skills } from '../data'
+import { sectionCopy, skills } from '../data'
 
 const categories = ['All', ...new Set(skills.map((s) => s.cat))]
 
@@ -20,14 +20,9 @@ export default function Skills() {
   }
 
   return (
-    <section id="skills" data-label="Skills" className="section skills">
+    <section id="skills" data-label={sectionCopy.skills.label} className="section skills">
       <div className="wrap">
-        <SectionHead
-          path="skills"
-          title="The full stack, and where I used it"
-          accent={[1, 2]}
-          intro="Front-end, back-end, data, Git, DevOps and leadership. Filter by area, then hover or focus a skill to see where I used it."
-        />
+        <SectionHead path="skills" title={sectionCopy.skills.title} accent={sectionCopy.skills.accent} intro={sectionCopy.skills.intro} />
         <LayoutGroup>
           <div className="tabs" role="tablist" aria-label="Skill areas">
             {categories.map((c) => {

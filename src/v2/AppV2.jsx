@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import './v2.css'
 import { useSmoothScroll } from '../lib/useSmoothScroll'
+import { arrival, useArrivalScroll } from '../lib/designSwitch'
 import LoaderV2 from './LoaderV2'
 import CursorV2 from './CursorV2'
 import Dock from './Dock'
@@ -16,23 +17,18 @@ import ScrollProgress from '../components/ScrollProgress'
 import CommandPalette from '../components/CommandPalette'
 import Toast from '../components/Toast'
 
-const FONTS = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap'
-
 export default function AppV2() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!arrival)
   useSmoothScroll()
+  useArrivalScroll()
 
   useEffect(() => {
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.href = FONTS
-    document.head.appendChild(link)
     const prevTitle = document.title
     document.title = 'Lakhtar Singh · Full-Stack Developer'
     document.body.classList.add('is-v2')
     const meta = document.querySelector('meta[name="theme-color"]')
     meta?.setAttribute('content', '#E9ECEF')
-    return () => { link.remove(); document.title = prevTitle; document.body.classList.remove('is-v2'); meta?.setAttribute('content', '#08161A') }
+    return () => { document.title = prevTitle; document.body.classList.remove('is-v2'); meta?.setAttribute('content', '#08161A') }
   }, [])
 
   return (

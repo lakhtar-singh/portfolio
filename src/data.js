@@ -2,6 +2,8 @@ export const profile = {
   name: 'Lakhtar Singh',
   role: 'Full-Stack Developer',
   status: 'Open to full-stack roles',
+  intro: 'I build products end to end, from the React screen down to the database index, and I spent four years leading the team that ships them.',
+  stackLine: 'React and Vue on the front; Node, Express, Laravel, PHP and WordPress behind it; MySQL and MongoDB underneath.',
   location: 'Toronto, Canada',
   timezone: 'America/Toronto',
   email: 'Singhlakhtar3@gmail.com',
@@ -15,6 +17,12 @@ export const stats = [
   { value: 12, suffix: '+', label: 'years shipping full-stack code' },
   { value: 4, suffix: '', label: 'years as a team lead' },
   { value: 11, suffix: '', label: 'live demos on this page' },
+]
+
+export const heroFacts = [
+  ['Now', 'Senior Full-Stack Developer, Tags for Hope'],
+  ['Led', 'Development team, Kays Harbor, 2021–2025'],
+  ['Based', 'Toronto, Canada'],
 ]
 
 export const marqueeTop = ['React', 'Vue.js', 'Next.js', 'TypeScript', 'Node.js', 'Express.js', 'Laravel', 'PHP', 'WordPress', 'MySQL', 'MongoDB', 'AWS']
@@ -225,33 +233,6 @@ export const aboutMe = {
   ],
 }
 
-export const roles = {
-  lead: {
-    label: 'As a team lead',
-    summary: 'Four years leading the development team at Kays Harbor: planning, reviews, releases and the people side of shipping.',
-    items: [
-      { cmd: 'jira sprint plan', title: 'Plan the work', text: 'Turn business requirements into scoped, estimated tickets with product owners and UX, so the sprint is realistic before it starts.', where: 'Kays Harbor · Tags for Hope' },
-      { cmd: 'gh pr review', title: 'Set the standard', text: 'Review pull requests, agree conventions and grow shared components and API contracts so the whole team builds the same way.', where: 'Kays Harbor' },
-      { cmd: 'release --prod', title: 'Own the release', text: 'Plan deployments, check service readiness and roll out with documented, repeatable steps. Releases should be boring.', where: 'Kays Harbor' },
-      { cmd: 'gh workflow run', title: 'Automate the risky parts', text: 'GitHub Actions pipelines test every merge and deploy to AWS EC2 only when everything passes.', where: 'Kays Harbor' },
-      { cmd: 'risk log --open', title: 'Raise risks early', text: 'Flag technical risks and dependencies early and agree mitigation plans with architects and stakeholders, so dates hold.', where: 'Tags for Hope · Kays Harbor' },
-      { cmd: 'docs handover', title: 'Keep knowledge in the team', text: 'Component docs and handover notes so support teams can maintain what we ship without calling us.', where: 'Always Infotech' },
-    ],
-  },
-  dev: {
-    label: 'As a full-stack developer',
-    summary: 'Twelve years writing code from the database up: React and Vue on top, Node, Laravel and WordPress in the middle, MySQL and MongoDB underneath.',
-    items: [
-      { cmd: 'npm run a11y', title: 'Accessible front-ends', text: 'React and Vue interfaces that work with screen readers, keyboards and every major browser.', where: 'Tags for Hope · Always Infotech' },
-      { cmd: 'php artisan route:list', title: 'APIs and services', text: 'REST APIs in Laravel and Node/Express with clean, predictable contracts for the front-end.', where: 'Kays Harbor' },
-      { cmd: 'EXPLAIN SELECT', title: 'Data that stays fast', text: 'MySQL schemas with the right indexes and tuned queries; MongoDB with Mongoose for document data.', where: 'Kays Harbor' },
-      { cmd: 'wp plugin activate', title: 'WordPress, properly', text: 'Custom themes, plugins and headless WordPress over WPGraphQL so content ships without deploys.', where: 'Every role since 2013' },
-      { cmd: 'auth:sanctum', title: 'Security by default', text: 'Token auth, role-based access and tenant isolation so each client only ever sees its own data.', where: 'Kays Harbor' },
-      { cmd: 'vite build --split', title: 'Performance', text: 'Code splitting, caching and CDN strategy so pages stay fast on slow connections.', where: 'Tags for Hope · Always Infotech' },
-    ],
-  },
-}
-
 export const projects = [
   {
     id: 'tenantdesk',
@@ -364,3 +345,35 @@ export const projects = [
     demo: 'headless',
   },
 ]
+
+/** Headings shared by both designs, so they always say the same thing. */
+export const sectionCopy = {
+  skills: {
+    label: 'Stack',
+    title: 'The full stack, layer by layer.',
+    accent: [1, 2],
+    intro: `${skills.length} skills across seven areas, from leading the team down to the habits under everything. Pick an area, then a skill to see where I used it.`,
+  },
+  projects: {
+    label: 'Work',
+    title: 'Eleven projects you can actually run.',
+    accent: [4, 5],
+    intro: 'Four full-stack builds that go from React down to the database, three shipped projects from my résumé and four front-end labs. Each one opens a working demo.',
+  },
+  experience: {
+    label: 'Career',
+    title: 'Twelve years, five companies, one team led.',
+    accent: [5, 6],
+    intro: 'Newest first. Open a role to see what I owned there.',
+  },
+  about: { label: 'About me', accent: [1, 9] },
+  contact: {
+    label: 'Contact',
+    title: 'Let’s build something people enjoy using.',
+    accent: [3, 4, 5],
+    intro: 'Hiring for a full-stack or team lead role, or planning a project? Send a note. I usually reply within a day.',
+  },
+}
+
+/** Section ids, in page order. Both designs use the same ids. */
+export const sectionOrder = ['skills', 'projects', 'experience', 'about', 'contact']

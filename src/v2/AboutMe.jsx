@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView } from 'framer-motion'
 import { SplitHeading } from '../components/Fx'
-import { aboutMe } from '../data'
+import { aboutMe, sectionCopy } from '../data'
 import { useMediaQuery } from '../lib/useMediaQuery'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -39,12 +39,12 @@ export default function AboutMe() {
   const [open, setOpen] = useState('lead')
 
   return (
-    <section id="about" data-label="About me" className="v2-section v2-me">
+    <section id="about" data-label={sectionCopy.about.label} className="v2-section v2-me">
       <div className="v2-wrap">
         <p className="v2-label"><span className="v2-label-bracket">(</span>About me<span className="v2-label-bracket">)</span></p>
 
         <div className="v2-me-top">
-          <SplitHeading text={aboutMe.statement} accent={[1, 9]} className="v2-title v2-me-statement" />
+          <SplitHeading text={aboutMe.statement} accent={sectionCopy.about.accent} className="v2-title v2-me-statement" />
           <motion.div
             className="v2-me-bio"
             initial={{ opacity: 0, y: 24 }}

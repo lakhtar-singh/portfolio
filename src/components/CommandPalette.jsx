@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { projects, profile } from '../data'
 import { scrollToId, scrollToTop, lockScroll } from '../lib/scroll'
 import { copyText, openProject } from '../lib/events'
+import { isClassicPath, switchDesign } from '../lib/designSwitch'
 
-const isV2 = () => window.location.pathname.replace(/\/$/, '') === '/home-v2'
 
 /** Sections come from the page itself, so the menu works on both designs. */
 const buildCommands = () => [
@@ -15,7 +15,7 @@ const buildCommands = () => [
   ...projects.map((p) => ({ group: 'Live demos', label: `Open ${p.title}`, hint: p.kind, run: () => { scrollToId('projects'); setTimeout(() => openProject(p.id), 500) } })),
   { group: 'Contact', label: 'Copy email address', hint: profile.email, run: () => copyText(profile.email, 'Email copied to clipboard') },
   { group: 'Contact', label: 'Open LinkedIn', hint: '↗', run: () => window.open(profile.linkedin, '_blank', 'noopener') },
-  ...(isV2() ? [] : [{ group: 'Design', label: 'Switch to design v2', hint: '/home-v2', run: () => { window.location.href = '/home-v2' } }]),
+  { group: 'Design', label: isClassicPath() ? 'Switch to the light design' : 'Switch to the dark design', hint: '◐', run: () => switchDesign() },
 ]
 
 export default function CommandPalette() {

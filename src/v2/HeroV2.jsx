@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import { Magnetic } from '../components/Fx'
-import { profile, stats } from '../data'
+import { heroFacts, profile, stats } from '../data'
+import DesignSwitch from '../components/DesignSwitch'
 import { scrollToId } from '../lib/scroll'
+import { useMediaQuery } from '../lib/useMediaQuery'
 
 const ease = [0.22, 1, 0.36, 1]
 const front = ['Full-stack', 'developer', '& team lead.']
@@ -34,13 +36,8 @@ function Counter({ value, suffix }) {
   return <b ref={ref}>{n}{suffix}</b>
 }
 
-function TorontoTime() {
-  const [t, setT] = useState(() => new Date())
-  useEffect(() => { const id = setInterval(() => setT(new Date()), 1000); return () => clearInterval(id) }, [])
-  return t.toLocaleTimeString('en-CA', { timeZone: profile.timezone, hour: '2-digit', minute: '2-digit', hour12: false })
-}
-
 export default function HeroV2({ ready }) {
+  const finePointer = useMediaQuery('(pointer: fine)')
   const box = useRef(null)
   const mx = useMotionValue(-400)
   const my = useMotionValue(-400)
@@ -79,9 +76,10 @@ export default function HeroV2({ ready }) {
   return (
     <section id="top" className="v2-hero">
       <motion.header className="v2-topbar v2-wrap" {...show(0.1)}>
-        <a href="/home-v2" className="v2-logo"><span>LS</span>Lakhtar Singh</a>
+        <a href="/" className="v2-logo"><span>LS</span>Lakhtar Singh</a>
         <div className="v2-topbar-right">
           <span className="v2-status"><i />{profile.status}</span>
+          <DesignSwitch className="v2-switch" />
         </div>
       </motion.header>
 
@@ -101,21 +99,17 @@ export default function HeroV2({ ready }) {
 
         <div className="v2-hero-foot">
           <motion.div className="v2-hero-copy" {...show(0.7)}>
-            <p className="v2-hero-intro">
-              I build products end to end, from the React screen down to the MySQL index, and I’ve spent four years leading the team that ships them.
-            </p>
+            <p className="v2-hero-intro">{profile.intro}</p>
+            <p className="v2-hero-stack">{profile.stackLine}</p>
             <div className="v2-ctas">
               <Magnetic><button className="v2-btn" onClick={() => scrollToId('projects')}>Run the demos <span aria-hidden="true">→</span></button></Magnetic>
               <Magnetic><button className="v2-btn v2-btn-ghost" onClick={() => scrollToId('contact')}>Start a conversation</button></Magnetic>
             </div>
-            <p className="v2-hint">Move your cursor over the headline to see the stack underneath.</p>
+            <p className="v2-hint">{finePointer ? 'Move your cursor over the headline to see the stack underneath.' : 'The blue lens shows the stack underneath the headline.'}</p>
           </motion.div>
 
           <motion.dl className="v2-spec" {...show(0.85)}>
-            <div><dt>Role</dt><dd>{profile.role}</dd></div>
-            <div><dt>Now</dt><dd>Tags for Hope, since Aug 2025</dd></div>
-            <div><dt>Led</dt><dd>Dev team at Kays Harbor, 2021–2025</dd></div>
-            <div><dt>Based</dt><dd>Toronto · <TorontoTime /> local</dd></div>
+            {heroFacts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
             <div className="v2-spec-stats">
               {stats.map((s) => (
                 <span key={s.label}><Counter value={s.value} suffix={s.suffix} />{s.label}</span>

@@ -2,7 +2,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { SectionHead, Tilt } from './Fx'
 import Preview from './Preview'
-import { projects, kindLabel, kindClass } from '../data'
+import { projects, kindLabel, kindClass, sectionCopy } from '../data'
 import { demos } from '../demos'
 import { lockScroll } from '../lib/scroll'
 
@@ -147,14 +147,9 @@ export default function Projects() {
   }), [])
 
   return (
-    <section id="projects" data-label="Projects" className="section projects">
+    <section id="projects" data-label={sectionCopy.projects.label} className="section projects">
       <div className="wrap">
-        <SectionHead
-          path="projects"
-          title="Projects you can actually play with"
-          accent={[4, 5, 6]}
-          intro="Four full-stack builds that run from React down to the database, three shipped projects from my résumé and four front-end labs. Every card opens a working demo."
-        />
+        <SectionHead path="projects" title={sectionCopy.projects.title} accent={sectionCopy.projects.accent} intro={sectionCopy.projects.intro} />
         <LayoutGroup>
           <div className="tabs" role="tablist" aria-label="Project filter">
             {filters.map((f) => (

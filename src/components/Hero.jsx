@@ -3,7 +3,7 @@ import { AnimatePresence, animate, motion, useInView, useScroll, useTransform } 
 import FieldCanvas from './FieldCanvas'
 import CodeWindow from './CodeWindow'
 import { Magnetic } from './Fx'
-import { profile, rotatingWords, stats } from '../data'
+import { heroFacts, profile, rotatingWords, stats } from '../data'
 import { scrollToId } from '../lib/scroll'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -87,12 +87,15 @@ export default function Hero({ ready }) {
               Full-stack developer and team lead, building products that feel <RotatingWord />
             </motion.p>
             <motion.p className="hero-sub" {...show(0.8)}>
-              Twelve years shipping code across the whole stack, four of them leading the team. React and Vue on the front; Node, Express, Laravel, PHP and WordPress behind it; MySQL and MongoDB underneath.
+              {profile.intro} <span className="hero-stackline">{profile.stackLine}</span>
             </motion.p>
             <motion.div className="hero-ctas" {...show(0.9)}>
               <Magnetic><button className="btn btn-accent" data-cursor="Go" onClick={() => scrollToId('projects')}>Try the live demos <span aria-hidden="true">↓</span></button></Magnetic>
               <Magnetic><button className="btn btn-ghost" onClick={() => scrollToId('contact')}>Get in touch</button></Magnetic>
             </motion.div>
+            <motion.dl className="hero-facts" {...show(0.95)}>
+              {heroFacts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+            </motion.dl>
             <motion.dl className="hero-stats" {...show(1)}>
               {stats.map((s) => (
                 <div key={s.label} className="stat">

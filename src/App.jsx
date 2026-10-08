@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { useSmoothScroll } from './lib/useSmoothScroll'
+import { arrival, useArrivalScroll } from './lib/designSwitch'
 import Loader from './components/Loader'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import About from './components/About'
-import Roles from './components/Roles'
+import About, { Marquees } from './components/About'
 import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
@@ -17,9 +17,14 @@ import Toast from './components/Toast'
 import ScrollProgress from './components/ScrollProgress'
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!arrival)
 
   useSmoothScroll()
+  useArrivalScroll()
+
+  useEffect(() => {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#08161A')
+  }, [])
 
   return (
     <MotionConfig reducedMotion="user">
@@ -29,11 +34,11 @@ export default function App() {
       <Nav />
       <main>
         <Hero ready={!loading} />
-        <About />
-        <Roles />
+        <Marquees />
         <Skills />
-        <Experience />
         <Projects />
+        <Experience />
+        <About />
         <Contact />
       </main>
       <Footer />
